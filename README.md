@@ -9,4 +9,3 @@ A simple reminders app.
 - [ ] Reminders: Title, Description, DateTime
 - [ ] Notifications
 - [ ] MongoDB: User registration & login
-- [ ]
