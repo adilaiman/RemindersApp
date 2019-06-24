@@ -3,8 +3,8 @@ import { Reminders } from '../imports/api/reminders.js';
 
 import './main.html';
 
-Template.body.helpders({
-  tasks() {
+Template.body.helpers({
+  reminders() {
     return Reminders.find({});
-  }
+  },
 });
