@@ -1,5 +1,5 @@
 import { Template } from 'meteor/templating';
-import { Tasks, Reminders } from '../imports/api/reminders.js';
+import { Reminders } from '../imports/api/reminders.js';
 
 import './main.html';
 
