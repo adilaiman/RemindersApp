@@ -6,7 +6,10 @@ import './main.html';
 Template.body.helpers({
 
   reminders() {
-    return Reminders.find({});
+    return Reminders.find(
+      {},
+      { sort: { date: -1 } }
+      );
   },
 
 });
