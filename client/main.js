@@ -39,4 +39,14 @@ Template.body.events({
     d.value = "";
   },
 
+  // cross out checked/completed event
+  "click .toggle-checked"() {
+    Reminders.update(this._id, {$set: {completed: !this.completed}});
+  },
+
+  // delete reminder
+  "click .delete"() {
+    Reminders.remove(this._id);
+  }
+
 });

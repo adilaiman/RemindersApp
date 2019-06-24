@@ -2,3 +2,8 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+
+p.checked,h3.checked,small.checked,li.checked {
+  color: #888;
+  text-decoration: line-through;
+}
