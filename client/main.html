@@ -3,24 +3,32 @@
 </head>
 
 <body>
-  <h1>Reminders App</h1>
+  <div class="wrapper">
+    <h1>Reminders App ({{incompleteCount}})</h1>
 
-  <!-- Input field to create new reminder, enter to submit -->
-  <form class="new-reminder">
-    <input type="text" id="title" placeholder="Title"/>
-    <input type="text" id="description" placeholder="Description"/>
-    <button type="submit">Add</button>
-  </form>
+    <!-- Input field to create new reminder -->
+    <form class="new-reminder">
+      <input type="text" id="title" placeholder="Title"/>
+      <input type="text" id="description" placeholder="Description"/>
+      <button type="submit">Add</button>
+    </form>
 
-  <ul>
-    <!-- Loop through reminders -->
-    {{#each reminders}}
-      {{> reminder}}
-    {{/each}}
-  </ul>
+    <label class="hide-completed">
+      <input type="checkbox" />
+      <small>Hide Completed Events</small>
+    </label>
+
+    <ul>
+      <!-- Loop through reminders -->
+      {{#each reminders}}
+        {{> reminder}}
+      {{/each}}
+    </ul>
+  </div>
   
 </body>
 
+<!-- Reminder template -->
 <template name="reminder">
   <li class="{{#if completed}}checked{{/if}}">
     <h3>{{title}}</h3>

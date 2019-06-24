@@ -1,6 +1,16 @@
 body {
   padding: 10px;
   font-family: sans-serif;
+  background-color: #eee;
+}
+
+.wrapper {
+  max-width: 700px;
+  margin: auto;
+  padding: 0px 20px 20px 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid black;
 }
 
 p.checked,h3.checked,small.checked,li.checked {
