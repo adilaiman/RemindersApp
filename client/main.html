@@ -1,5 +1,5 @@
 <head>
-  <title>Reminders App</title>
+  <title>Reminders App: Reminders</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -14,9 +14,6 @@
     <ul class="nav nav-pills nav-fill">
         <li class="nav-item">
           <a class="nav-link active" href="#">Reminders</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Calendar</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">{{> loginButtons}}</a>
@@ -79,6 +76,10 @@
 
     {{/if}}
 
+    <div id="calendar" style="margin-top: 40px;">
+    </div>
+
+
   </div>
 
 </body>
@@ -90,11 +91,10 @@
             <h5 class="mb-1">{{title}}</h5>
             <small>
               {{formatDate date}}
-              <input type="checkbox" checked="{{completed}}" class="toggle-checked" />
+              <input type="checkbox" checked="{{completed}}" class="toggle-checked" /> 
             </small>
           </div>
           <p class="mb-1">{{description}}</p>
-
           
           <div style="text-align: right">
           <button class="edit btn btn-primary btn-sm">Edit</button>

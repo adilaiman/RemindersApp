@@ -2,12 +2,15 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { Reminders } from '../imports/api/reminders.js';
-
+import { Calendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
 import './main.html';
 import "../imports/startup/accounts-config.js";
 
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
+import '../node_modules/@fullcalendar/core/main.css';
+import '../node_modules/@fullcalendar/daygrid/main.css';
 
 Template.body.helpers({
 
@@ -43,6 +46,7 @@ Template.registerHelper("formatDate", (date) => {
   return (`${day}-${month}-${year}`);
 });
 
+
 Template.body.events({
 
   "submit .new-reminder" (e) {
@@ -52,8 +56,8 @@ Template.body.events({
     // place title, descrip & date elements into vars
     const titleInput = document.querySelector("#title");
     const descriptionInput = document.querySelector("#description");
-    const dateInput = document.querySelector("#date")
-    // get values from t,d
+    const dateInput = document.querySelector("#date");
+    // get values
     const tV = titleInput.value;
     const dV = descriptionInput.value;
     const dateValue = dateInput.value;
@@ -85,7 +89,19 @@ Template.body.events({
 
   // edit post
   "click .edit"(e) {
+    // get elements
+    const titleInput = document.querySelector("#title");
+    const descriptionInput = document.querySelector("#description");
+
+    // call to update values
+    Meteor.call("reminders.edit", this._id, titleInput.value, descriptionInput.value);
+
+    // clear form values
+    titleInput.value = "";
+    descriptionInput.value = "";
+    dateInput.value="";
   }
+
   
 });
 
@@ -94,3 +110,17 @@ Template.body.onCreated(function bodyOnCreated() {
   this.state = new ReactiveDict();
   Meteor.subscribe('reminders');
 });
+
+// render calendar
+Template.body.rendered = () => {
+    const calendarEl = document.getElementById('calendar');    
+
+    const calendar = new Calendar(calendarEl, {
+      plugins: [ dayGridPlugin ],
+      events: [],
+    });
+  
+    calendar.render();
+}
+
+console.log(clickCounter);

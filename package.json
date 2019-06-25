@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.5",
+    "@fullcalendar/core": "^4.2.0",
+    "@fullcalendar/daygrid": "^4.2.0",
     "bootstrap": "^4.3.1",
     "jquery": "^3.4.1",
     "meteor-node-stubs": "^0.4.1",

@@ -31,6 +31,7 @@ Meteor.methods({
         owner: Meteor.userId(),
         username: Meteor.user().username,
       });
+      
     },
   
     'reminders.remove'(reminderId) {
@@ -43,5 +44,12 @@ Meteor.methods({
       check(setCompleted, Boolean);
       Reminders.update(reminderId, { $set: { completed: setCompleted } });
     },
+
+    "reminders.edit"(reminderId, title, description) {
+      check(reminderId, String);
+      check(title, String);
+      check(description, String);
+      Reminders.update(reminderId, {$set: {title: title, description: description}});
+    }
   
   });
