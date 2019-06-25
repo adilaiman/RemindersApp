@@ -12,8 +12,19 @@ meteor
 
 ## How To
 ### Login & Register
-![]("gif/Signing_in.gif")
+![](gif/sign_in.gif)
 
+### Create new reminder
+![](gif/newrem.gif)
+
+### Check & hide completed reminders
+![](gif/hide.gif)
+
+### Edit existing reminder
+![](gif/edit_rem.gif)
+
+### Delete existing reminder
+![](gif/delete.gif)
 
 ## TODO
 - [x] ~~Reminder Object: Title, Description, Date/Time~~
