@@ -58,7 +58,7 @@
   <li class="{{#if completed}}checked{{/if}}">
     <h3>{{title}}</h3>
     <p>{{description}}</p>
-    <small>Posted by {{username}} on {{date}}</small>
+    {{formatDate date}}
     <input type="checkbox" checked="{{completed}}" class="toggle-checked" />
     <button class="edit">edit</button>
     <button class="delete">&times;</button>

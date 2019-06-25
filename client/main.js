@@ -35,6 +35,14 @@ Template.body.helpers({
 
 });
 
+//global scoped helpder function
+Template.registerHelper("formatDate", (date) => {
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  return (`${day}-${month}-${year}`);
+});
+
 Template.body.events({
 
   "submit .new-reminder" (e) {
