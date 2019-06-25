@@ -1,5 +1,5 @@
 <head>
-  <title>Reminders App: Reminders</title>
+  <title>Reminders App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
@@ -7,11 +7,13 @@
   
   <div class="container">
 
+    <!-- Title -->
     <h1>Reminders App</h1>
     <br/>
 
+    <!-- Navigation Bar -->
     <nav>
-    <ul class="nav nav-pills nav-fill">
+      <ul class="nav nav-pills nav-fill">
         <li class="nav-item">
           <a class="nav-link active" href="#">Reminders</a>
         </li>
@@ -28,7 +30,7 @@
       <p>Please login to use the app!</p>
     {{/if}}
 
-    <!-- Input field to create new reminder, only if logged in -->
+    <!-- Input field to create new reminder, only visible if logged in -->
     {{#if currentUser}}
 
       <form class="new-reminder">
@@ -61,6 +63,7 @@
       </form>
       <br/>
 
+      <!-- Upcoming events header with counter -->
       <h2>Upcoming Events: {{incompleteCount}}</h2>
       <label class="hide-completed">
         <input type="checkbox" />
@@ -74,8 +77,10 @@
         {{/each}}
       </div>
 
-    {{/if}}
+    {{/if}} 
+    <!-- end if (user login) -->
 
+    <!-- Calendar render div -->
     <div id="calendar" style="margin-top: 40px;">
     </div>
 
@@ -97,9 +102,8 @@
           <p class="mb-1">{{description}}</p>
           
           <div style="text-align: right">
-          <button class="edit btn btn-primary btn-sm">Edit</button>
-          <button class="delete btn btn-primary btn-sm">Delete</button>
+            <button class="edit btn btn-primary btn-sm">Edit</button>
+            <button class="delete btn btn-primary btn-sm">Delete</button>
           </div>
-
         </a>
 </template>
