@@ -1,7 +1,16 @@
-# RemindersApp
+# Reminders App
 
-## Info
-A simple reminders app created using MeteorJS.
+## TODO
+- [x] ~~Reminder Object: Title, Description, Date/Time~~
+- [x] ~~MongoDB: Users & Reminders Collections~~
+- [x] ~~User Authentication & Login~~
+- [x] ~~User editing: add, delete, edit~~
+- [x] ~~Collection modifcation via secure Meteor methods~~
+- [x] ~~Design layout: LESS, Bootstrap~~
+- [ ] Unit Tests ❌
+- [ ] Calendar integration (fullcalendar.io) ❌
+
+Been smashing my head against a wall and on stackoverflow trying to complete the final two requirements. Unfortunately my attempts at implementation of it 🅱orked my app, so this is a "stable" version for now, hopefully I will be able to get a working app that meets all the requirements soon, watch for some commits as I fiddle around with the code hoping it works 🙃.
 
 ## Build
 ```
@@ -27,13 +36,3 @@ meteor
 
 ### Delete existing reminder
 ![](gif/delete.gif)
-
-## TODO
-- [x] ~~Reminder Object: Title, Description, Date/Time~~
-- [x] ~~MongoDB: Users & Reminders Collections~~
-- [x] ~~User Authentication & Login~~
-- [x] ~~User editing: add, delete, edit~~
-- [x] ~~Collection modifcation via secure Meteor methods~~
-- [x] ~~Design layout: LESS, Bootstrap~~
-- [ ] **Unit Tests**
-- [ ] **Calendar integration (fullcalendar.io)**
