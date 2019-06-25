@@ -7,6 +7,8 @@ A simple reminders app created using MeteorJS.
 ```
 cd <PROJECT_FOLDER>
 meteor npm install --save @fullcalendar/core @fullcalendar/daygrid
+meteor npm install --save bootstrap
+meteor add less
 meteor
 ```
 
