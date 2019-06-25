@@ -17,3 +17,18 @@ p.checked,h3.checked,small.checked,li.checked {
   color: #888;
   text-decoration: line-through;
 }
+
+ul {
+  padding:0;
+  list-style-type: none;
+}
+
+li.reminder_object {
+  border: 1px black solid;
+  padding: 0 10px 10px 10px;
+  margin-bottom: 10px;
+}
+
+.tool {
+  text-align: right;
+}
