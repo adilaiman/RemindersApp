@@ -4,19 +4,33 @@
 
 <body>
   <div class="wrapper">
-    <h1>Reminders App ({{incompleteCount}})</h1>
+    <h1>Reminders App</h1>
 
-    <!-- Input field to create new reminder -->
+    <nav>
+      <ul>
+        <li><a href="main.html">Reminders</a></li>
+        <li><a href="">Calendar</a></li>
+        <li>{{> loginButtons}}</li>
+      </ul>
+    </nav>
+
+    <p>Please login to use the app!</p>
+
+    <!-- Input field to create new reminder, only if logged in -->
+    {{#if currentUser}}
     <form class="new-reminder">
       <input type="text" id="title" placeholder="Title"/>
       <input type="text" id="description" placeholder="Description"/>
       <button type="submit">Add</button>
     </form>
+    
 
     <label class="hide-completed">
       <input type="checkbox" />
       <small>Hide Completed Events</small>
     </label>
+
+    <h3>Incomplete: {{incompleteCount}}</h3>
 
     <ul>
       <!-- Loop through reminders -->
@@ -24,6 +38,7 @@
         {{> reminder}}
       {{/each}}
     </ul>
+    {{/if}}
   </div>
   
 </body>
@@ -33,7 +48,7 @@
   <li class="{{#if completed}}checked{{/if}}">
     <h3>{{title}}</h3>
     <p>{{description}}</p>
-    <small>{{date}}</small>
+    <small>Posted by {{username}} on {{date}}</small>
     <input type="checkbox" checked="{{completed}}" class="toggle-checked" />
     <button class="delete">&times;</button>
   </li>

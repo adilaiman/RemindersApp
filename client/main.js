@@ -1,30 +1,42 @@
+import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
-import { Reminders } from '../imports/api/reminders.js';
 import { ReactiveDict } from 'meteor/reactive-dict';
+import { Reminders } from '../imports/api/reminders.js';
+
 
 import './main.html';
+import "../imports/startup/accounts-config.js";
 
 Template.body.helpers({
 
-  // return reminders, hide completed reminders if hide completed is checked
+  // return users reminders, hide completed reminders if hide completed is checked
   reminders() {
     const instance = Template.instance();
     if (instance.state.get("hideCompleted")) {
+      // return Reminders.find(
+      //   { completed: { $ne: true } }, 
+      //   { sort: { date: -1 } }
+      // );
       return Reminders.find(
-        { completed: { $ne: true } }, 
-        { sort: { date: -1 } }
+        {$and: [{ completed: { $ne: true } }, {owner: Meteor.userId()}]},
+        {sort: { date: -1 }}
       );
     } else {
+      // return Reminders.find(
+      //   {},
+      //   { sort: { date: -1 } }
+      // );
       return Reminders.find(
-        {},
-        { sort: { date: -1 } }
-        );
+        {owner: Meteor.userId()},
+        {sort: { date: -1 }}
+      );
     }
   },
 
   // return number of events that completed is false
   incompleteCount() {
-    return Reminders.find({ completed: { $ne: true } }).count();
+    // return Reminders.find({ completed: { $ne: true }  }).count();
+    return Reminders.find({$and: [{ completed: { $ne: true } }, {owner: Meteor.userId()}]}).count();
   },
 
 });
@@ -46,7 +58,10 @@ Template.body.events({
     Reminders.insert({
       title: tV,
       description: dV,
-      date: new Date()
+      date: new Date(),
+      completed: false,
+      owner: Meteor.userId(),
+      username: Meteor.user().username,
     });
 
     // clear form values
