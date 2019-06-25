@@ -47,12 +47,12 @@ Template.body.events({
     // don't do default action
     e.preventDefault();
 
-    // place title and descrip elements into vars
-    const timeInput = document.querySelector("#title");
+    // place title, descrip & date elements into vars
+    const titleInput = document.querySelector("#title");
     const descriptionInput = document.querySelector("#description");
     const dateInput = document.querySelector("#date")
     // get values from t,d
-    const tV = timeInput.value;
+    const tV = titleInput.value;
     const dV = descriptionInput.value;
     const dateValue = dateInput.value;
 
@@ -60,7 +60,7 @@ Template.body.events({
     Meteor.call("reminders.insert", tV, dV, dateValue)
     
     // clear form values
-    timeInput.value = "";
+    titleInput.value = "";
     descriptionInput.value = "";
     dateInput.value="";
   },
@@ -83,9 +83,8 @@ Template.body.events({
 
   // edit post
   "click .edit"(e) {
-    
-  },
-
+  }
+  
 });
 
 // store initial state on generation of body
