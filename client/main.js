@@ -35,7 +35,7 @@ Template.body.helpers({
 
 });
 
-//global scoped helpder function
+//global scoped helper function
 Template.registerHelper("formatDate", (date) => {
   const day = date.getDate();
   const month = date.getMonth() + 1;
