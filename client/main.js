@@ -58,15 +58,8 @@ Template.body.events({
     const dV = descriptionInput.value;
     const dateValue = dateInput.value;
 
-    // insert data into collection
-    Reminders.insert({
-      title: tV,
-      description: dV,
-      date: new Date(dateValue),
-      completed: false,
-      owner: Meteor.userId(),
-      username: Meteor.user().username,
-    });
+    // call meteor method to insert data into collection
+    Meteor.call("reminders.insert", tV, dV, dateValue)
     
     // clear form values
     timeInput.value = "";
@@ -76,12 +69,13 @@ Template.body.events({
 
   // cross out checked/completed event
   "click .toggle-checked"() {
-    Reminders.update(this._id, {$set: {completed: !this.completed}});
+    Meteor.call('reminders.setChecked', this._id, !this.completed);
   },
 
   // delete reminder
   "click .delete"() {
-    Reminders.remove(this._id);
+    // call meteor method to delete data from collection
+    Meteor.call("reminders.remove", this._id);
   },
 
   // hide completed reminders
