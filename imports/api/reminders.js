@@ -4,6 +4,13 @@ import { check } from 'meteor/check';
 
 export const Reminders = new Mongo.Collection("reminders");
 
+if (Meteor.isServer) {
+    // This code only runs on the server
+    Meteor.publish('reminders', function reminderPublication() {
+      return Reminders.find({ owner: this.userId });
+    });
+}
+
 Meteor.methods({
 
     'reminders.insert'(title, description, date) {

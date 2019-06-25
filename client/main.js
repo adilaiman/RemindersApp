@@ -14,14 +14,12 @@ Template.body.helpers({
     const instance = Template.instance();
     if (instance.state.get("hideCompleted")) {
       return Reminders.find(
-        {$and: [{ completed: { $ne: true } }, {owner: Meteor.userId()}]},
-        // {sort: { date: -1 }}
+        { completed: { $ne: true } },
         {sort: { date: 1 }}
       );
     } else {
       return Reminders.find(
-        {owner: Meteor.userId()},
-        // {sort: { date: -1 }}
+        {},
         {sort: { date: 1 }}
       );
     }
@@ -93,4 +91,5 @@ Template.body.events({
 // store initial state on generation of body
 Template.body.onCreated(function bodyOnCreated() {
   this.state = new ReactiveDict();
+  Meteor.subscribe('reminders');
 });
