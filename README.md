@@ -3,15 +3,17 @@
 ## Info
 A simple reminders app created using MeteorJS.
 
-## Dependencies
-```
-```
-
 ## Build
 ```
 cd <PROJECT_FOLDER>
+meteor npm install --save @fullcalendar/core @fullcalendar/daygrid
 meteor
 ```
+
+## How To
+### Login & Register
+![]("gif/Signing_in.gif")
+
 
 ## TODO
 - [x] ~~Reminder Object: Title, Description, Date/Time~~
