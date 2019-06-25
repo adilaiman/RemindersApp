@@ -13,22 +13,16 @@ Template.body.helpers({
   reminders() {
     const instance = Template.instance();
     if (instance.state.get("hideCompleted")) {
-      // return Reminders.find(
-      //   { completed: { $ne: true } }, 
-      //   { sort: { date: -1 } }
-      // );
       return Reminders.find(
         {$and: [{ completed: { $ne: true } }, {owner: Meteor.userId()}]},
-        {sort: { date: -1 }}
+        // {sort: { date: -1 }}
+        {sort: { date: 1 }}
       );
     } else {
-      // return Reminders.find(
-      //   {},
-      //   { sort: { date: -1 } }
-      // );
       return Reminders.find(
         {owner: Meteor.userId()},
-        {sort: { date: -1 }}
+        // {sort: { date: -1 }}
+        {sort: { date: 1 }}
       );
     }
   },
@@ -48,25 +42,28 @@ Template.body.events({
     e.preventDefault();
 
     // place title and descrip elements into vars
-    const t = document.querySelector("#title");
-    const d = document.querySelector("#description");
+    const timeInput = document.querySelector("#title");
+    const descriptionInput = document.querySelector("#description");
+    const dateInput = document.querySelector("#date")
     // get values from t,d
-    const tV = t.value;
-    const dV = d.value;
+    const tV = timeInput.value;
+    const dV = descriptionInput.value;
+    const dateValue = dateInput.value;
 
     // insert data into collection
     Reminders.insert({
       title: tV,
       description: dV,
-      date: new Date(),
+      date: new Date(dateValue),
       completed: false,
       owner: Meteor.userId(),
       username: Meteor.user().username,
     });
-
+    
     // clear form values
-    t.value = "";
-    d.value = "";
+    timeInput.value = "";
+    descriptionInput.value = "";
+    dateInput.value="";
   },
 
   // cross out checked/completed event
@@ -82,6 +79,11 @@ Template.body.events({
   // hide completed reminders
   'change .hide-completed input'(event, instance) {
     instance.state.set('hideCompleted', event.target.checked);
+  },
+
+  // edit post
+  "click .edit"(e) {
+    
   },
 
 });

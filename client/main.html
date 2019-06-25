@@ -3,7 +3,9 @@
 </head>
 
 <body>
+  
   <div class="wrapper">
+
     <h1>Reminders App</h1>
 
     <nav>
@@ -14,31 +16,39 @@
       </ul>
     </nav>
 
-    <p>Please login to use the app!</p>
+    <!-- Msg user to login -->
+    {{#if currentUser}}
+    {{else}}
+      <p>Please login to use the app!</p>
+    {{/if}}
 
     <!-- Input field to create new reminder, only if logged in -->
     {{#if currentUser}}
-    <form class="new-reminder">
-      <input type="text" id="title" placeholder="Title"/>
-      <input type="text" id="description" placeholder="Description"/>
-      <button type="submit">Add</button>
-    </form>
-    
 
-    <label class="hide-completed">
-      <input type="checkbox" />
-      <small>Hide Completed Events</small>
-    </label>
+      <form class="new-reminder">
+        <input type="text" id="title" placeholder="Title"/><br/>
+        <textarea id="description" cols="30" rows="10" placeholder="Description"></textarea><br/>
+        <input type="date" id="date"/><br/>
+        <button type="submit">Submit</button>
+      </form>
+      
 
-    <h3>Incomplete: {{incompleteCount}}</h3>
+      <label class="hide-completed">
+        <input type="checkbox" />
+        <small>Hide Completed Events</small>
+      </label>
 
-    <ul>
-      <!-- Loop through reminders -->
-      {{#each reminders}}
-        {{> reminder}}
-      {{/each}}
-    </ul>
+      <h3>Incomplete: {{incompleteCount}}</h3>
+
+      <ul>
+        <!-- Loop through reminders -->
+        {{#each reminders}}
+          {{> reminder}}
+        {{/each}}
+      </ul>
+
     {{/if}}
+
   </div>
   
 </body>
@@ -50,6 +60,7 @@
     <p>{{description}}</p>
     <small>Posted by {{username}} on {{date}}</small>
     <input type="checkbox" checked="{{completed}}" class="toggle-checked" />
+    <button class="edit">edit</button>
     <button class="delete">&times;</button>
   </li>
 </template>
