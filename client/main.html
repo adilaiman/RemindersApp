@@ -1,19 +1,28 @@
 <head>
   <title>Reminders App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
   
-  <div class="wrapper">
+  <div class="container">
 
     <h1>Reminders App</h1>
+    <br/>
 
     <nav>
-      <ul>
-        <li><a href="main.html">Reminders</a></li>
-        <li><a href="">Calendar</a></li>
-        <li>{{> loginButtons}}</li>
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Reminders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Calendar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">{{> loginButtons}}</a>
+        </li>
       </ul>
+      <br/>
     </nav>
 
     <!-- Msg user to login -->
@@ -26,41 +35,71 @@
     {{#if currentUser}}
 
       <form class="new-reminder">
-        <input type="text" id="title" placeholder="Title"/><br/>
-        <textarea id="description" cols="30" rows="10" placeholder="Description"></textarea><br/>
-        <input type="date" id="date"/><br/>
-        <button type="submit">Submit</button>
-      </form>
 
-      <h3>Upcoming Events: {{incompleteCount}}</h3>
+        <!-- Title Input -->
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Title</span>
+            </div>
+            <input type="text" class="form-control" id="title" placeholder="Title" aria-label="Title" aria-describedby="basic-addon1"/>
+        </div>
+
+        <!-- Description Input -->
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Description</span>
+            </div>
+            <input type="text" class="form-control" id="description" placeholder="Description" aria-label="Title" aria-describedby="basic-addon1">
+        </div>
+
+        <!-- Date Input -->
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Date</span>
+            </div>
+            <input class="form-control" id="date" type="date"/>
+        </div>
+              
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      <br/>
+
+      <h2>Upcoming Events: {{incompleteCount}}</h2>
       <label class="hide-completed">
         <input type="checkbox" />
         <small>Hide Completed Events</small>
       </label>
 
-      <ul>
-        <!-- Loop through reminders -->
+      <!-- Loop over and output reminders -->
+      <div class="list-group">
         {{#each reminders}}
           {{> reminder}}
         {{/each}}
-      </ul>
+      </div>
 
     {{/if}}
 
   </div>
-  
+
 </body>
 
 <!-- Reminder template -->
 <template name="reminder">
-  <li class="{{#if completed}}checked{{/if}} reminder_object">
-    <h3>{{title}}</h3>
-    <p>{{description}}</p>
-    <p>{{formatDate date}}</p>
-    <div class="tool">
-      <input type="checkbox" checked="{{completed}}" class="toggle-checked" />
-      <button class="edit">E</button>
-      <button class="delete">&times;</button>
-    </div>
-  </li>
+        <a href="#" class="list-group-item list-group-item-action {{#if completed}}checked{{/if}}">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{title}}</h5>
+            <small>
+              {{formatDate date}}
+              <input type="checkbox" checked="{{completed}}" class="toggle-checked" />
+            </small>
+          </div>
+          <p class="mb-1">{{description}}</p>
+
+          
+          <div style="text-align: right">
+          <button class="edit btn btn-primary btn-sm">Edit</button>
+          <button class="delete btn btn-primary btn-sm">Delete</button>
+          </div>
+
+        </a>
 </template>

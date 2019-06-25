@@ -10,5 +10,5 @@ A simple reminders app created using MeteorJS.
 - [ ] User editing: ~~add~~, ~~delete~~, **edit**
 - [x] Collection modifcation via secure Meteor methods
 - [ ] Calendar integration (fullcalendar.io)
-- [ ] Design layout: LESS, Bootstrap
+- [x] Design layout: LESS, Bootstrap
 - [ ] Unit Tests

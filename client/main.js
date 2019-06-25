@@ -7,6 +7,8 @@ import { Reminders } from '../imports/api/reminders.js';
 import './main.html';
 import "../imports/startup/accounts-config.js";
 
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
+
 Template.body.helpers({
 
   // return users reminders, hide completed reminders if hide completed is checked
