@@ -12,8 +12,6 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../node_modules/@fullcalendar/core/main.css';
 import '../node_modules/@fullcalendar/daygrid/main.css';
 
-const eventArray = [];
-
 Template.body.helpers({
 
   // return users reminders, hide completed reminders if hide completed is checked
@@ -25,13 +23,22 @@ Template.body.helpers({
         {sort: { date: 1 }}
       );
     } else {
-
+      const { calendar } = instance;
       const events = Reminders.find().fetch();
+
       for (i=0; i < events.length; i++) {
         const temp = { id: events[i]._id, title: events[i].title, date: events[i].date, allDay:true }
-        eventArray.push(temp);
+        // check if the event already exists in the calender
+        const event = calendar.getEventById(temp.id);
+        if (event) {
+          // update any properties.
+          event.setProp('title', temp.title);
+          event.setProp("date", temp.date)
+        } else {
+          // add new event
+          calendar.addEvent(temp);
+        }
       }
-
       return Reminders.find(
         {},
         {sort: { date: 1 }}
@@ -126,8 +133,9 @@ Template.body.rendered = () => {
 
     const calendar = new Calendar(calendarEl, {
       plugins: [ dayGridPlugin ],
-      events: eventArray,
+      events: [],
     });
-  
+
+    Template.instance().calendar = calendar;
     calendar.render();
 }
