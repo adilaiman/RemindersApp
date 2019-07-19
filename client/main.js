@@ -12,6 +12,23 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../node_modules/@fullcalendar/core/main.css';
 import '../node_modules/@fullcalendar/daygrid/main.css';
 
+function updateCalendar(calendar, eventList) {
+  const events = eventList;
+
+  for (i=0; i < events.length; i++) {
+    const temp = { id: events[i]._id, title: events[i].title, date: events[i].date, allDay:true }
+    // check if the event already exists in the calender
+    const event = calendar.getEventById(temp.id);
+    if (event) {
+      // update any properties.
+      event.setProp('title', temp.title);
+    } else {
+      // add new event
+      calendar.addEvent(temp);
+    }
+  }
+}
+
 Template.body.helpers({
 
   // return users reminders, hide completed reminders if hide completed is checked
@@ -25,20 +42,8 @@ Template.body.helpers({
     } else {
       const { calendar } = instance;
       const events = Reminders.find().fetch();
+      updateCalendar(calendar, events);
 
-      for (i=0; i < events.length; i++) {
-        const temp = { id: events[i]._id, title: events[i].title, date: events[i].date, allDay:true }
-        // check if the event already exists in the calender
-        const event = calendar.getEventById(temp.id);
-        if (event) {
-          // update any properties.
-          event.setProp('title', temp.title);
-          event.setProp("date", temp.date)
-        } else {
-          // add new event
-          calendar.addEvent(temp);
-        }
-      }
       return Reminders.find(
         {},
         {sort: { date: 1 }}
@@ -78,13 +83,18 @@ Template.body.events({
     const dV = descriptionInput.value;
     const dateValue = dateInput.value;
 
+
+    if (/^$|\s+/.test(tV) || /^$|\s+/.test(dV) || /^$|\s+/.test(dateValue)) {
+      alert("Please fill out all fields");
+    } else {
     // call meteor method to insert data into collection
-    Meteor.call("reminders.insert", tV, dV, dateValue)
+    Meteor.call("reminders.insert", tV, dV, dateValue);
     
     // clear form values
     titleInput.value = "";
     descriptionInput.value = "";
     dateInput.value="";
+    }
   },
 
   // cross out checked/completed event
