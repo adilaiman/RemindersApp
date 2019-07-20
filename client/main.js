@@ -14,9 +14,9 @@ import '../node_modules/@fullcalendar/daygrid/main.css';
 
 // get random color
 function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
@@ -26,14 +26,16 @@ function getRandomColor() {
 function updateCalendar() {
   const { calendar } = Template.instance();
   const events = Reminders.find().fetch();
+  console.table(events)
 
-  for (i=0; i < events.length; i++) {
-    const temp = { id: events[i]._id, title: events[i].title, date: events[i].date, allDay:true, description: events[i].description, backgroundColor: events[i].color, borderColor: events[i].color }
+  for (let event of events) {
+    const temp = { id: event._id, title: event.title, date: event.date, allDay:true, description: event.description, backgroundColor: event.color, borderColor: event.color }
+
     // check if the event already exists in the calender
-    const event = calendar.getEventById(temp.id);
-    if (event) {
+    const eventInCalendar = calendar.getEventById(temp.id);
+    if (eventInCalendar) {
       // update any properties.
-      event.setProp('title', temp.title);
+      eventInCalendar.setProp('title', temp.title);
     } else {
       // add new event
       calendar.addEvent(temp);
