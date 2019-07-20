@@ -22,3 +22,4 @@ accounts-ui
 accounts-password
 less
 meteortesting:mocha
+practicalmeteor:chai

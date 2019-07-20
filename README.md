@@ -19,6 +19,18 @@ meteor add less
 meteor
 ```
 
+## Running Tests
+```
+meteor add meteortesting:mocha
+meteor npm install --save-dev chai
+meteor add practicalmeteor:chai
+
+TEST_WATCH=1 meteor test --driver-package meteortesting:mocha
+<-- For Windows -->
+setx TEST_WATCH 1
+meteor test --driver-package meteortesting:mocha
+```
+
 ## How To
 ### Login & Register
 ![](gif/sign_in.gif)

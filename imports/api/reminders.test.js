@@ -5,11 +5,12 @@ import { assert } from 'meteor/practicalmeteor:chai';
 import { Reminders } from './reminders.js';
 
 if (Meteor.isServer) {
-    describe('Reminders', () => {
-        describe('methods', () => {
+
+    describe('Reminders', function() {
+        describe('methods', function() {
             const userId = Random.id();
             let reminderId;
-            beforeEach(() => {
+            beforeEach(function () {
                 Reminders.remove({});
                 reminderId = Reminders.insert({
                   title: 'test title',
@@ -19,14 +20,12 @@ if (Meteor.isServer) {
                 });
               });
 
-            it('can delete owned task', () => {
+            it('can delete owned task', function(){
                 // Find the internal implementation of the task method so we can
-
                 // test it in isolation
                 const deleteReminders = Meteor.server.method_handlers['reminders.remove'];
 
                 // Set up a fake method invocation that looks like what the method expects
-
                 const invocation = { userId };
 
                 // Run the method with `this` set to the fake invocation
@@ -37,4 +36,5 @@ if (Meteor.isServer) {
             });
         });
     });
+
 }
