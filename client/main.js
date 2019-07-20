@@ -26,7 +26,6 @@ function getRandomColor() {
 function updateCalendar() {
   const { calendar } = Template.instance();
   const events = Reminders.find().fetch();
-  console.table(events)
 
   for (let event of events) {
     const temp = { id: event._id, title: event.title, date: event.date, allDay:true, description: event.description, backgroundColor: event.color, borderColor: event.color }
@@ -36,6 +35,9 @@ function updateCalendar() {
     if (eventInCalendar) {
       // update any properties.
       eventInCalendar.setProp('title', temp.title);
+      eventInCalendar.setProp('date', temp.date);
+      eventInCalendar.setProp('description', temp.description);
+      eventInCalendar.setProp('color', temp.backgroundColor);
     } else {
       // add new event
       calendar.addEvent(temp);
