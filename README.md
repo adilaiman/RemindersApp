@@ -25,8 +25,10 @@ meteor add meteortesting:mocha
 meteor npm install --save-dev chai
 meteor add practicalmeteor:chai
 
+<BASH>
 TEST_WATCH=1 meteor test --driver-package meteortesting:mocha
-<-- For Windows -->
+
+<WINDOWS>
 setx TEST_WATCH 1
 meteor test --driver-package meteortesting:mocha
 ```
