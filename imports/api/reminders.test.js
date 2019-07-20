@@ -5,13 +5,13 @@ import { assert } from 'meteor/practicalmeteor:chai';
 import { Reminders } from './reminders.js';
 
 if (Meteor.isServer) {
-    describe('Rreminders', () => {
+    describe('Reminders', () => {
         describe('methods', () => {
             const userId = Random.id();
             let reminderId;
             beforeEach(() => {
                 Reminders.remove({});
-                reminderId = Tasks.insert({
+                reminderId = Reminders.insert({
                   title: 'test title',
                   date: new Date(),
                   owner: userId,

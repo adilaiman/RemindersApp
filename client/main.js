@@ -16,7 +16,7 @@ function updateCalendar(calendar, eventList) {
   const events = eventList;
 
   for (i=0; i < events.length; i++) {
-    const temp = { id: events[i]._id, title: events[i].title, date: events[i].date, allDay:true }
+    const temp = { id: events[i]._id, title: events[i].title, date: events[i].date, allDay:true, description: events[i].description }
     // check if the event already exists in the calender
     const event = calendar.getEventById(temp.id);
     if (event) {
@@ -105,7 +105,20 @@ Template.body.events({
   // delete reminder
   "click .delete"() {
     // call meteor method to delete data from collection
+    const { calendar } = Template.instance();
+    const events = calendar.getEvents();
+    let target;
+
+    for (let event of events) {
+      if (event.id == this._id) {
+        target = event;
+      }
+    }
+
+    target.remove();
+
     Meteor.call("reminders.remove", this._id);
+
   },
 
   // hide completed reminders
@@ -127,7 +140,6 @@ Template.body.events({
     descriptionInput.value = "";
     dateInput.value="";
   }
-
   
 });
 

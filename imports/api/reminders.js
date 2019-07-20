@@ -22,7 +22,7 @@ Meteor.methods({
       if (! Meteor.userId()) {
         throw new Meteor.Error('not-authorized');
       }
-  
+
       Reminders.insert({
         title: title,
         description: description,
@@ -31,7 +31,7 @@ Meteor.methods({
         owner: Meteor.userId(),
         username: Meteor.user().username,
       });
-      
+
     },
   
     'reminders.remove'(reminderId) {
