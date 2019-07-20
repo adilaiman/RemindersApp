@@ -12,11 +12,23 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../node_modules/@fullcalendar/core/main.css';
 import '../node_modules/@fullcalendar/daygrid/main.css';
 
-function updateCalendar(calendar, eventList) {
-  const events = eventList;
+// get random color
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+// load all reminders into calendar
+function updateCalendar() {
+  const { calendar } = Template.instance();
+  const events = Reminders.find().fetch();
 
   for (i=0; i < events.length; i++) {
-    const temp = { id: events[i]._id, title: events[i].title, date: events[i].date, allDay:true, description: events[i].description }
+    const temp = { id: events[i]._id, title: events[i].title, date: events[i].date, allDay:true, description: events[i].description, backgroundColor: events[i].color, borderColor: events[i].color }
     // check if the event already exists in the calender
     const event = calendar.getEventById(temp.id);
     if (event) {
@@ -27,6 +39,20 @@ function updateCalendar(calendar, eventList) {
       calendar.addEvent(temp);
     }
   }
+}
+
+// deleter reminder from calendar
+function deleteEvent(eventID) {
+  const { calendar } = Template.instance();
+  const events = calendar.getEvents();
+  let target;
+
+  for (let event of events) {
+    if (event.id == eventID) {
+      target = event;
+    }
+  }
+  target.remove();
 }
 
 Template.body.helpers({
@@ -40,10 +66,7 @@ Template.body.helpers({
         {sort: { date: 1 }}
       );
     } else {
-      const { calendar } = instance;
-      const events = Reminders.find().fetch();
-      updateCalendar(calendar, events);
-
+      updateCalendar();
       return Reminders.find(
         {},
         {sort: { date: 1 }}
@@ -82,13 +105,14 @@ Template.body.events({
     const tV = titleInput.value;
     const dV = descriptionInput.value;
     const dateValue = dateInput.value;
+    const color = getRandomColor();
 
 
     if (/^$|\s+/.test(tV) || /^$|\s+/.test(dV) || /^$|\s+/.test(dateValue)) {
       alert("Please fill out all fields");
     } else {
     // call meteor method to insert data into collection
-    Meteor.call("reminders.insert", tV, dV, dateValue);
+    Meteor.call("reminders.insert", tV, dV, dateValue, color);
     
     // clear form values
     titleInput.value = "";
@@ -105,18 +129,7 @@ Template.body.events({
   // delete reminder
   "click .delete"() {
     // call meteor method to delete data from collection
-    const { calendar } = Template.instance();
-    const events = calendar.getEvents();
-    let target;
-
-    for (let event of events) {
-      if (event.id == this._id) {
-        target = event;
-      }
-    }
-
-    target.remove();
-
+    deleteEvent(this._id);
     Meteor.call("reminders.remove", this._id);
 
   },

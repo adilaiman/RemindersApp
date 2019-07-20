@@ -13,10 +13,11 @@ if (Meteor.isServer) {
 
 Meteor.methods({
 
-    'reminders.insert'(title, description, date) {
+    'reminders.insert'(title, description, date, color) {
       check(title, String);
       check(description, String);
       check(date, String);
+      check(color, String)
   
       // Make sure the user is logged in before inserting a task
       if (! Meteor.userId()) {
@@ -30,6 +31,7 @@ Meteor.methods({
         completed: false,
         owner: Meteor.userId(),
         username: Meteor.user().username,
+        color: color,
       });
 
     },
